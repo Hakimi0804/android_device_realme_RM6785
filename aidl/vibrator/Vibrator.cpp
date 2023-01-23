@@ -160,8 +160,11 @@ ndk::ScopedAStatus Vibrator::getSupportedEffects(std::vector<Effect>* _aidl_retu
 }
 
 ndk::ScopedAStatus Vibrator::setAmplitude(float amplitude) {
-    if (mAmplitudeControl)
+    if (mAmplitudeControl) {
+        // force max intensity
+        amplitude = 9;
         write(VIBRATOR_INTENSITY, amplitude);
+    }
 
     return ndk::ScopedAStatus::ok();
 }
